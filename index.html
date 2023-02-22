@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Splendid Food</title>
+    <link rel="stylesheet" href="styles/style.min.css">
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+<body>
+    <div id="app">
+
+        <header class="top-bar spread">
+          <nav class="top-bar-nav">
+            <a href="#" class="top-bar-link">
+              <i class="icofont-spoon-and-fork"></i>
+              <span>Home</span>
+            </a>
+          </nav>
+          <a @click="toggleSidebar" class="top-bar-cart-link">
+            <i class="icofont-cart-alt icofont-1x"></i>
+            <span>Cart ({{ totalQuantity }})</span>
+          </a>
+        </header>
+  
+        <div class="splash-container">
+          <div class="splash">
+            <h1>Splendid Food</h1>
+          </div>
+        </div>
+  
+        <main class="wrapper">
+  
+          <h2>OUR OPTIONS</h2>
+  
+          <div class="recommended">
+  
+            <div v-for="(product, i) in inventory.slice(0,3)" :key="product.id" class="card">
+              <div class="card-title">
+                {{ product.name}}
+              </div>
+              <div class="card-body">
+                <i class="icofont-10x {{ product.icon }}"></i>
+                <form>
+                  <div class="row">
+                    <div class="cell">
+                      <label>Type:</label>
+                    </div>
+                    <div class="cell">
+                      <em>{{ product.type }}</em>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="cell">
+                      <label>Price:</label>
+                    </div>
+                    <div class="cell">
+                    ${{ product.price.USD }}
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="cell">
+                      <label>Quantity:</label>
+                    </div>
+                    <div class="cell">
+                      <input type="number" v-model.number="product.quantity">
+                    </div>
+                  </div>
+                </form>
+              </div>
+              <div class="card-footer">
+                <button @click="addToCart(product.name, i)" class="btn btn-light">
+                  Add to cart
+                </button>
+              </div>
+            </div>
+  
+      
+          </div>
+  
+        </main>
+ 
+
+        <sidebar v-if="showSidebar" 
+        :toggle="toggleSidebar" 
+        :cart="cart"
+        :inventory="inventory"
+        :remove="removeItem"
+        />
+
+      
+    
+         
+            </div>
+
+
+
+        
+  
+      
+
+
+
+      
+
+    <script src="js/main.js"></script>
+    
+    <script>
+        const mountedApp=app.mount("#app");
+    </script>
+</body>
+</html>
